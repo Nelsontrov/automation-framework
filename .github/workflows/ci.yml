@@ -29,11 +29,25 @@ jobs:
       - name: Install json-server
         run: npm install -g json-server
 
-      - name: Start json-server (port 3001)
+      - name: Start json-server (port 3001) and wait
         shell: pwsh
         run: |
-          Start-Process -NoNewWindow -FilePath "json-server" -ArgumentList "db.json --port 3001"
-          Start-Sleep -Seconds 2
+          $cmd = (Get-Command json-server.cmd -ErrorAction SilentlyContinue)
+          if (-not $cmd) { throw "json-server.cmd not found in PATH" }
+
+          Start-Process -NoNewWindow -FilePath $cmd.Source -ArgumentList "db.json --port 3001"
+
+          for ($i=0; $i -lt 30; $i++) {
+            try {
+              Invoke-WebRequest -UseBasicParsing http://localhost:3001/posts | Out-Null
+              Write-Host "json-server is up!"
+              exit 0
+            } catch {
+              Start-Sleep -Seconds 1
+            }
+          }
+          throw "json-server did not start on port 3001"
+
 
       - name: Run Maven tests (headless)
         run: mvn -B clean test -Dheadless=true
@@ -43,4 +57,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
-          path: test-output
+          path: test-output/**
+          if-no-files-found: ignore
+
+      - name: Upload Surefire Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/**
+          if-no-files-found: ignore
