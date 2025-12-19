@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
-
 public abstract class BasePage {
 
     protected final WebDriver driver;

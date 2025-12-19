@@ -8,7 +8,7 @@ on:
 
 jobs:
   tests:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -29,25 +29,15 @@ jobs:
       - name: Install json-server
         run: npm install -g json-server
 
-      - name: Start json-server (port 3001) and wait
-        shell: pwsh
+      - name: Start json-server (port 3001)
         run: |
-          $cmd = (Get-Command json-server.cmd -ErrorAction SilentlyContinue)
-          if (-not $cmd) { throw "json-server.cmd not found in PATH" }
+          json-server --watch db.json --port 3001 > json-server.log 2>&1 &
+          sleep 5
 
-          Start-Process -NoNewWindow -FilePath $cmd.Source -ArgumentList "db.json --port 3001"
-
-          for ($i=0; $i -lt 30; $i++) {
-            try {
-              Invoke-WebRequest -UseBasicParsing http://localhost:3001/posts | Out-Null
-              Write-Host "json-server is up!"
-              exit 0
-            } catch {
-              Start-Sleep -Seconds 1
-            }
-          }
-          throw "json-server did not start on port 3001"
-
+      - name: Verify json-server is up
+        run: |
+          curl -sSf http://localhost:3001 > /dev/null
+          echo "json-server is responding"
 
       - name: Run Maven tests (headless)
         run: mvn -B clean test -Dheadless=true
@@ -57,13 +47,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
-          path: test-output/**
-          if-no-files-found: ignore
-
-      - name: Upload Surefire Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: target/surefire-reports/**
+          path: test-output
           if-no-files-found: ignore

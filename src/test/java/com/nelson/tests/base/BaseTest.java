@@ -5,6 +5,10 @@ import com.nelson.framework.driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import com.nelson.tests.reporting.TestListener;
+
+@Listeners(TestListener.class)
 
 public abstract class BaseTest {
     protected WebDriver driver;

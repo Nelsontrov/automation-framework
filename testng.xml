@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Automation Suite" parallel="methods" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.nelson.tests.reporting.TestListener"/>
+    </listeners>
+
+    <test name="UI Tests">
+        <classes>
+            <class name="com.nelson.tests.ui.SmokeTest"/>
+            <class name="com.nelson.tests.api.UserApiTest"/>
+            <class name="com.nelson.tests.integration.ApiToUiIntegrationTest"/>
+        </classes>
+    </test>
+</suite>
