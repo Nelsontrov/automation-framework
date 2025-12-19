@@ -1,0 +1,70 @@
+{
+  "posts": [
+    {
+      "id": "de24",
+      "title": "Nelson portfolio API test",
+      "body": "creating a post via Rest-Assured",
+      "userId": 1
+    },
+    {
+      "id": "768e",
+      "title": "Nelson E2E Post",
+      "body": "Created via API, validated via UI",
+      "userId": 1
+    },
+    {
+      "id": "cafb",
+      "title": "Nelson portfolio API test",
+      "body": "creating a post via Rest-Assured",
+      "userId": 1
+    },
+    {
+      "id": "a5f6",
+      "title": "seed post",
+      "body": "seed body",
+      "userId": 1
+    },
+    {
+      "id": "8b3f",
+      "title": "Nelson E2E Post",
+      "body": "Created via API, validated via UI",
+      "userId": 1
+    },
+    {
+      "id": "e40e",
+      "title": "Nelson portfolio API test",
+      "body": "creating a post via Rest-Assured",
+      "userId": 1
+    },
+    {
+      "id": "75d9",
+      "title": "seed post",
+      "body": "seed body",
+      "userId": 1
+    },
+    {
+      "id": "efcf",
+      "title": "Nelson E2E Post",
+      "body": "Created via API, validated via UI",
+      "userId": 1
+    },
+    {
+      "id": "d446",
+      "title": "Nelson portfolio API test",
+      "body": "creating a post via Rest-Assured",
+      "userId": 1
+    },
+    {
+      "id": "33b1",
+      "title": "seed post",
+      "body": "seed body",
+      "userId": 1
+    },
+    {
+      "id": "c2da",
+      "title": "Nelson E2E Post",
+      "body": "Created via API, validated via UI",
+      "userId": 1
+    }
+  ]
+}
